@@ -11,10 +11,17 @@ In order to run this app, you'll need to set up your environment.
 3. Create a [Discord application](https://discord.com/developers/applications). Copy its application ID (found under "General information") and token (found under "Bot") into `.env`.
 4. Create a [Wheel of Names API key](https://wheelofnames.com/api-doc). Copy it into `.env`.
 
+Remember to run `npm run deploy-commands` whenever you update the `data` of any of your commands!
+
 ### Local development
 
 5. Run `npm install` in this directory to install dependencies.
 6. Run `npm run dev` in this directory to run the local development server.
+
+#### Additional helpful scripts:
+
+- Run `npm run check-types` to check the whole project for type errors.
+- Run `npm run lint` to lint the whole project with `oxlint`.
 
 ### Production deployment
 
