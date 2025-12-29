@@ -22,6 +22,7 @@ Remember to run `npm run deploy-commands` whenever you update the `data` of any 
 
 - Run `npm run check-types` to check the whole project for type errors.
 - Run `npm run lint` to lint the whole project with `oxlint`.
+- Run `npm run format` to format the whole project with `oxfmt`.
 
 ### Production deployment
 

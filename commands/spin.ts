@@ -1,18 +1,23 @@
-import { type ChatInputCommandInteraction, SlashCommandBuilder, AttachmentBuilder } from 'discord.js';
+import {
+  type ChatInputCommandInteraction,
+  SlashCommandBuilder,
+  AttachmentBuilder
+} from 'discord.js';
 import { getSpinAnimation } from '../wheel-of-names-api-util.ts';
 
 export default {
   data: new SlashCommandBuilder()
     .setName('spin')
     .setDescription('Spins a wheel with the Wheel of Names API')
-    .addStringOption((option) => option
-      .setName('texts')
-      .setDescription('The texts you want on the wheel, separated by commas')
-      .setRequired(true)
+    .addStringOption((option) =>
+      option
+        .setName('texts')
+        .setDescription('The texts you want on the wheel, separated by commas')
+        .setRequired(true)
     ),
   async execute(interaction: ChatInputCommandInteraction) {
     const texts = interaction.options.getString('texts');
-    if (!texts) throw Error('You must include at least one text!')
+    if (!texts) throw Error('You must include at least one text!');
     await interaction.deferReply();
     const { filePath, winner, cleanup } = await getSpinAnimation(
       texts.split(',').map((text) => text.trim())
@@ -24,4 +29,4 @@ export default {
     });
     void cleanup();
   }
-}
+};

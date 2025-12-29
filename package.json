@@ -11,13 +11,15 @@
     "dev": "node --env-file=.env --watch .",
     "deploy-commands": "node --env-file=.env deploy-commands.ts",
     "check-types": "tsc",
-    "lint": "oxlint"
+    "lint": "oxlint",
+    "format": "oxfmt"
   },
   "dependencies": {
     "discord.js": "^14.25.1"
   },
   "devDependencies": {
     "@types/node": "^25.0.3",
+    "oxfmt": "^0.21.0",
     "oxlint": "^1.36.0",
     "typescript": "^5.9.3"
   },

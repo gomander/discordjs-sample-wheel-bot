@@ -12,7 +12,7 @@ client.once(Events.ClientReady, (readyClient) => {
 
 client.on(Events.InteractionCreate, async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
-  const command = commands[interaction.commandName]
+  const command = commands[interaction.commandName];
   if (!command) {
     console.error(`No command matching ${interaction.commandName} was found.`);
     return;
@@ -26,12 +26,12 @@ client.on(Events.InteractionCreate, async (interaction) => {
     } else if (interaction.replied) {
       await interaction.followUp({
         content: 'There was an error while executing this command!',
-        flags: MessageFlags.Ephemeral,
+        flags: MessageFlags.Ephemeral
       });
     } else {
       await interaction.reply({
         content: 'There was an error while executing this command!',
-        flags: MessageFlags.Ephemeral,
+        flags: MessageFlags.Ephemeral
       });
     }
   }

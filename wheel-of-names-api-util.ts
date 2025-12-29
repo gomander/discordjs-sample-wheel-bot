@@ -4,28 +4,24 @@ import { env } from 'node:process';
 const { WHEEL_OF_NAMES_API_KEY } = env;
 if (!WHEEL_OF_NAMES_API_KEY) throw Error('WHEEL_OF_NAMES_API_KEY not set!');
 
-
 export async function getSpinAnimation(texts: string[]) {
   const imageFormat = 'webp';
-  const response = await globalThis.fetch(
-    'https://wheelofnames.com/api/v2/wheels/animate',
-    {
-      method: 'POST',
-      headers: {
-        'x-api-key': WHEEL_OF_NAMES_API_KEY,
-        'Content-Type': 'application/json'
+  const response = await fetch('https://wheelofnames.com/api/v2/wheels/animate', {
+    method: 'POST',
+    headers: {
+      'x-api-key': WHEEL_OF_NAMES_API_KEY,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      wheelConfig: {
+        entries: texts.map((text) => ({ text })),
+        spinTime: 3
       },
-      body: JSON.stringify({
-        wheelConfig: {
-          entries: texts.map((text) => ({ text })),
-          spinTime: 3
-        },
-        imageFormat,
-        responseFormat: 'formData',
-        initialAngle: Math.random() * 2 * Math.PI
-      })
-    }
-  );
+      imageFormat,
+      responseFormat: 'formData',
+      initialAngle: Math.random() * 2 * Math.PI
+    })
+  });
   if (!response.headers.get('Content-Type')?.startsWith('multipart/form-data')) {
     if (response.headers.get('Content-Type') === 'application/json') {
       const data = await response.json();
