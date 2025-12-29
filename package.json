@@ -1,7 +1,7 @@
 {
   "name": "discordjs-sample-wheel-bot",
   "version": "0.0.1",
-  "description": "",
+  "description": "Sample discord.js bot that uses the Wheel of Names API to generate spinning wheel animations.",
   "license": "MIT",
   "author": "Gunnar Omander <gunnar@gomander.dev>",
   "type": "module",
