@@ -1,0 +1,27 @@
+{
+  "name": "discordjs-sample-wheel-bot",
+  "version": "0.0.1",
+  "description": "",
+  "license": "MIT",
+  "author": "Gunnar Omander <gunnar@gomander.dev>",
+  "type": "module",
+  "main": "main.ts",
+  "scripts": {
+    "start": "node --env=file=.env .",
+    "dev": "node --env-file=.env --watch .",
+    "deploy-commands": "node --env-file=.env deploy-commands.ts",
+    "check-types": "tsc",
+    "lint": "oxlint"
+  },
+  "dependencies": {
+    "discord.js": "^14.25.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "oxlint": "^1.36.0",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">= 24"
+  }
+}
