@@ -18,9 +18,9 @@
     "discord.js": "^14.25.1"
   },
   "devDependencies": {
-    "@types/node": "^25.0.3",
-    "oxfmt": "^0.21.0",
-    "oxlint": "^1.36.0",
+    "@types/node": "^24.10.13",
+    "oxfmt": "^0.32.0",
+    "oxlint": "^1.47.0",
     "typescript": "^5.9.3"
   },
   "engines": {
