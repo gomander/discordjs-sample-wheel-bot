@@ -1,0 +1,10 @@
+.git
+node_modules
+.dockerignore
+.env.template
+.gitignore
+.oxfmtrc.json
+Dockerfile
+LICENSE
+README.md
+tsconfig.json

@@ -27,5 +27,14 @@ Remember to run `npm run deploy-commands` whenever you update the `data` of any 
 ### Production deployment
 
 5. Upload this entire directory (except for `node_modules`) to your server.
-6. Run `npm ci` in this directory to install dependencies.
+
+#### With Docker
+
+6. Run `docker compose up -d` to build and run the production server.
+
+#### Manual
+
+If deploying and running the server manually, you can also skip uploading all the Docker-related files.
+
+6. Run `npm ci --omit=dev` in this directory to install only runtime dependencies.
 7. Run `npm start` in this directory to run the production server.
