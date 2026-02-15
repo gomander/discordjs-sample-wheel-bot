@@ -1,13 +1,13 @@
 {
   "name": "discordjs-sample-wheel-bot",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Sample discord.js bot that uses the Wheel of Names API to generate spinning wheel animations.",
   "license": "MIT",
   "author": "Gunnar Omander <gunnar@gomander.dev>",
   "type": "module",
   "main": "main.ts",
   "scripts": {
-    "start": "node --env-file=.env .",
+    "start": "npm run deploy-commands & node --env-file=.env .",
     "dev": "node --env-file=.env --watch .",
     "deploy-commands": "node --env-file=.env deploy-commands.ts",
     "check-types": "tsc",

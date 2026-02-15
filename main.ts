@@ -18,6 +18,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
     return;
   }
   try {
+    console.log(`Received command "/${interaction.commandName}"`);
     await command.execute(interaction);
   } catch (error) {
     console.error(error);
