@@ -19,14 +19,13 @@ export default {
     const texts = interaction.options.getString('texts');
     if (!texts) throw Error('You must include at least one text!');
     await interaction.deferReply();
-    const { filePath, winner, cleanup } = await getSpinAnimation(
+    const { animation, imageFormat, winner } = await getSpinAnimation(
       texts.split(',').map((text) => text.trim())
     );
-    const file = new AttachmentBuilder(filePath);
+    const file = new AttachmentBuilder(animation, { name: `wheel.${imageFormat}` });
     await interaction.editReply({
       content: `The winner is: ${winner.text}`,
       files: [file]
     });
-    void cleanup();
   }
 };
