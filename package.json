@@ -7,7 +7,7 @@
   "type": "module",
   "main": "main.ts",
   "scripts": {
-    "start": "node --env=file=.env .",
+    "start": "node --env-file=.env .",
     "dev": "node --env-file=.env --watch .",
     "deploy-commands": "node --env-file=.env deploy-commands.ts",
     "check-types": "tsc",
