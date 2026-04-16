@@ -15,13 +15,13 @@
     "format": "oxfmt"
   },
   "dependencies": {
-    "discord.js": "^14.25.1"
+    "discord.js": "^14.26.3"
   },
   "devDependencies": {
-    "@types/node": "^24.10.13",
-    "oxfmt": "^0.32.0",
-    "oxlint": "^1.47.0",
-    "typescript": "^5.9.3"
+    "@types/node": "^24.12.2",
+    "oxfmt": "~0.45.0",
+    "oxlint": "^1.60.0",
+    "typescript": "^6.0.2"
   },
   "engines": {
     "node": ">= 24"

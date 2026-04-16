@@ -4,7 +4,6 @@
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
-    "target": "esnext",
     "lib": ["esnext"],
     "types": ["node"],
 
@@ -13,11 +12,9 @@
     "exactOptionalPropertyTypes": true,
 
     // Recommended Options
-    "strict": true,
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
     "skipLibCheck": true,
     "erasableSyntaxOnly": true,
     "noEmit": true,

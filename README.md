@@ -53,6 +53,7 @@ I would recommend creating two separate apps in the Discord developer console; o
 Go wild customizing your wheel(s)! Create all kinds of custom commands for spinning specific wheels. Try integrating the your bot with other services like Twitch, for example.
 
 Here are some examples of commands you could add, all with their own custom colors:
+
 - `/d20` to spin a wheel with the numbers 1-20
 - `/members` to spin a wheel with members of your server
 - `/reactions` to spin a wheel with users who reacted to a specific message
