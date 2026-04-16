@@ -3,10 +3,20 @@ import { env } from 'node:process';
 const { WHEEL_OF_NAMES_API_KEY } = env;
 if (!WHEEL_OF_NAMES_API_KEY) throw Error('WHEEL_OF_NAMES_API_KEY not set!');
 
-export async function getSpinAnimation(texts: string[]) {
-  // Change this tp `gif` if you want GIFs instead.
-  // GIFs render faster, but have a larger file size.
-  const imageFormat = 'webp';
+export async function getSpinAnimation(texts: string[]): Promise<{
+  animation: Buffer;
+  imageFormat: 'gif' | 'webp';
+  winner: Record<string, any>;
+}> {
+  // Change this to `gif` if you want GIFs instead. GIFs render faster, but have a larger file size.
+  const imageFormat = 'webp' satisfies 'gif' | 'webp' as 'gif' | 'webp';
+  // Change this to `json` if you want JSON responses instead. JSON responses are ~33% larger over
+  // the network than FormData responses, since the animation needs to be base64-encoded rather than
+  // being sent in raw binary.
+  const responseFormat = 'formData' satisfies 'formData' | 'json' as 'formData' | 'json';
+  if (responseFormat !== 'formData' && responseFormat !== 'json') {
+    throw Error('Invalid response format specified');
+  }
   const response = await fetch('https://wheelofnames.com/api/v2/wheels/animate', {
     method: 'POST',
     headers: {
@@ -27,13 +37,30 @@ export async function getSpinAnimation(texts: string[]) {
         maxNames: 120
       },
       imageFormat,
-      // FormData responses are smaller, since the animation can be sent as binary. You can change
-      // this to `json` if you want the simpler `await response.json()` API.
-      responseFormat: 'formData',
+      responseFormat,
       // Start the wheel at a random position. This doesn't affect the result.
       initialAngle: Math.random() * 2 * Math.PI
     })
   });
+
+  const data =
+    responseFormat === 'formData'
+      ? await handleFormDataResponse(response)
+      : responseFormat === 'json'
+        ? await handleJsonResponse(response)
+        : null;
+  if (!data) throw Error('Invalid responseFormat specified');
+
+  return {
+    ...data,
+    imageFormat
+  };
+}
+
+async function handleFormDataResponse(response: Response): Promise<{
+  animation: Buffer;
+  winner: Record<string, any>;
+}> {
   // If the Wheel of Names API doesn't send the right type of response, parse the error.
   if (!response.headers.get('Content-Type')?.startsWith('multipart/form-data')) {
     if (response.headers.get('Content-Type') === 'application/json') {
@@ -51,18 +78,33 @@ export async function getSpinAnimation(texts: string[]) {
   // gets. Read more: https://github.com/nodejs/undici/issues/4388#issuecomment-3301932142
   const formData = await response.formData();
   const winner = JSON.parse(formData.get('winner')?.toString() ?? 'null');
-  if (!winner) {
-    throw Error('The Wheel of Names API returned an invalid response.');
-  }
   const file = formData.get('animation');
+  // Type-narrowing for TypeScript's benefit
   if (!file || typeof file !== 'object') {
     throw Error('The Wheel of Names API returned an invalid response.');
   }
   const arrayBuffer = await file.arrayBuffer();
-  const animation = Buffer.from(arrayBuffer);
   return {
-    animation,
-    imageFormat,
+    animation: Buffer.from(arrayBuffer),
     winner
+  };
+}
+
+async function handleJsonResponse(response: Response): Promise<{
+  animation: Buffer;
+  winner: Record<string, any>;
+}> {
+  // Expect correct response type
+  if (response.headers.get('Content-Type') !== 'application/json') {
+    throw Error('The Wheel of Names API returned an invalid response.');
+  }
+  const data = (await response.json()) as
+    | { error: string }
+    | { animation: string; winner: Record<string, any> };
+  // Standard Wheel of Names API error response
+  if ('error' in data) throw Error(data.error);
+  return {
+    animation: Buffer.from(data.animation, 'base64'),
+    winner: data.winner
   };
 }
